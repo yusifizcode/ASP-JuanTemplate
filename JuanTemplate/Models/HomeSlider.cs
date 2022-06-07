@@ -16,7 +16,6 @@ namespace JuanTemplate.Models
         [StringLength(maximumLength: 50)]
         public string Title { get; set; }
         public string Desc { get; set; }
-        [Required]
         public string Image { get; set; }
         [Required]
         public string BtnText { get; set; }

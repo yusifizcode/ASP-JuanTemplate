@@ -28,7 +28,7 @@ namespace JuanTemplate
             services.AddControllersWithViews();
             services.AddDbContext<JuanDbContext>(options =>
             {
-                options.UseSqlServer(@"Server=DESKTOP-1TG370G;Database=Juan;Trusted_Connection=TRUE");
+                options.UseSqlServer(@"Server=DESKTOP-PGOASLP\SQLEXPRESS;Database=Juan;Trusted_Connection=TRUE");
             });
         }
 
@@ -54,6 +54,11 @@ namespace JuanTemplate
 
             app.UseEndpoints(endpoints =>
             {
+
+                endpoints.MapControllerRoute(
+                    name: "manage",
+                    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

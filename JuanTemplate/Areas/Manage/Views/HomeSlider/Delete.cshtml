@@ -1,0 +1,28 @@
+﻿@model HomeSlider
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Title</h5>
+                    <p class="card-text">subtitle : @Model.Subtitle</p>
+                    <p class="card-text">desc : @Model.Desc</p>
+                    <p class="card-text">btnText : @Model.BtnText</p>
+
+                    <form asp-action="delete" method="post">
+                          <a href="#" class="btn btn-primary">Go to back</a>
+                          <button type="submit" asp-action="delete" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
