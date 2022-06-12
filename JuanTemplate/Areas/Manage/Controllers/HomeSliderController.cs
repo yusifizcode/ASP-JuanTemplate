@@ -1,5 +1,7 @@
 ﻿using JuanTemplate.DAL;
+using JuanTemplate.Helpers;
 using JuanTemplate.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -9,10 +11,12 @@ namespace JuanTemplate.Areas.Manage.Controllers
     public class HomeSliderController : Controller
     {
         private JuanDbContext _context;
+        private IWebHostEnvironment _env;
 
-        public HomeSliderController(JuanDbContext context)
+        public HomeSliderController(JuanDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
         public IActionResult Index()
         {
@@ -28,10 +32,30 @@ namespace JuanTemplate.Areas.Manage.Controllers
         [HttpPost]
         public IActionResult Create(HomeSlider slider)
         {
+
+
+            if(slider.ImageFile != null)
+            {
+                if(slider.ImageFile.ContentType != "image/png" && slider.ImageFile.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("ImageFile", "File format must be image/png or image/jpeg");
+                }
+                if(slider.ImageFile.Length > 2097152)
+                {
+                    ModelState.AddModelError("ImageFile", "File size must be less than 2MB");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("ImageFile","Image file is required!");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View();
             }
+
+            slider.Image = FileManager.Save(_env.WebRootPath,"uploads/sliders",slider.ImageFile);
 
             _context.HomeSliders.Add(slider);
             _context.SaveChanges();
@@ -88,6 +112,8 @@ namespace JuanTemplate.Areas.Manage.Controllers
 
             if (existSlider == null)
                 return RedirectToAction("error", "dashboard");
+
+            FileManager.Delete(_env.WebRootPath, "uploads/sliders", existSlider.Image);
 
             _context.HomeSliders.Remove(existSlider);
             _context.SaveChanges();

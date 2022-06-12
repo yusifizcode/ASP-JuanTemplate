@@ -18,6 +18,8 @@
                         <th scope="col">Title</th>
                         <th scope="col">Desc</th>
                         <th scope="col">BtnText</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Actions</th>
 
 
                     </tr>
@@ -32,6 +34,7 @@
                             <td>@slider.Title</td>
                             <td>@slider.Desc</td>
                             <td>@slider.BtnText</td>
+                            <td><img src="~/uploads/sliders/@slider.Image" width="100" /></td>
                             <td>
                                 <a asp-action="edit" asp-route-id="@slider.Id" class="btn btn-warning">Edit</a>
                                 <a asp-action="delete" asp-route-id="@slider.Id" class="btn btn-danger">Delete</a>
