@@ -28,7 +28,7 @@ namespace JuanTemplate
             services.AddControllersWithViews();
             services.AddDbContext<JuanDbContext>(options =>
             {
-                options.UseSqlServer(@"Server=DESKTOP-PGOASLP\SQLEXPRESS;Database=Juan;Trusted_Connection=TRUE");
+                options.UseSqlServer(@"Server=DESKTOP-1TG370G;Database=Juan;Trusted_Connection=TRUE");
             });
         }
 
